@@ -1,0 +1,66 @@
+
+
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="alert alert-secondary">
+
+<div class="container">
+
+
+
+<div class="row"> 
+  <div class="col-12">
+        Дата : {{article.time_create}} <b>Version</b> : {{article.version}}:{%if article.is_published%}current{%else%}
+
+        <form action="" method="POST">
+             {%csrf_token%}
+        <button type="submit" name="current" value="{{article.pk}}" class="btn btn-primary">Сделать текущей</button>
+
+
+          </form>
+        {%endif%}
+        
+  </div>   
+      </p>
+       <strong>{{article.title}}</strong>
+       
+             
+
+</div> 
+</div> 
+<div class="container"> 
+<div class="row">
+     <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <p><div class="alert alert-dark" role="alert">{{article.text}}</p> </div>
+         </div> 
+            </div> 
+        </div>   
+             <button type="button" class="btn btn-dark float-right " style="margin-top: 15px;margin-left: 10px;"  ><a href="\">назад</a></button> 
+             <button type="button" class="btn btn-dark float-right" style="margin-top: 15px;"  ><a href="{%url 'edit' article.pk%}">Редактирвовать</a></button> 
+
+    </div>  
+
+    <p>Другие версии</p>
+
+    {%for i in versions%}
+    <div class="container">
+    <li class="selected">Ver. 
+         {%if i.is_published%}
+     {{i.version}} current
+     {%else%}
+     {{i.version}}
+          {%endif%}
+     
+     
+     <a href="{{i.get_absolute_url}}"> {{i.title|truncatewords:20}}</a></li>
+</div>
+
+    {%endfor%}
+
+
+    {% endblock %}
+
+
+    </html>
